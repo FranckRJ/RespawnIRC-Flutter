@@ -43,7 +43,12 @@ class TopicItem extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.all(2),
-                child: Image.asset(_topicTypeToAssetName(topicData.type), width: 20, height: 20, fit: BoxFit.contain),
+                child: Image.asset(
+                  _topicTypeToAssetName(topicData.type),
+                  width: 20,
+                  height: 20,
+                  fit: BoxFit.contain,
+                ),
               ),
               Expanded(
                 child: Column(
