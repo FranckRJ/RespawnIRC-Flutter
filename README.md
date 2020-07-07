@@ -1,6 +1,6 @@
-# flutest
+# respawnirc_flutter
 
-CECI EST UN FLUTEST
+Une version Flutter de RespawnIRC.
 
 ## Getting Started
 

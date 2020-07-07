@@ -1,4 +1,4 @@
-package com.franckrj.flutest
+package com.franckrj.respawnirc_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 

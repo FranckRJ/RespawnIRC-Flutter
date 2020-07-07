@@ -1,5 +1,5 @@
-name: flutest
-description: CECI EST UN FLUTEST
+name: respawnirc_flutter
+description: Une version Flutter de RespawnIRC.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

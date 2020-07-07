@@ -1,7 +1,7 @@
-import 'package:flutest/forum_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'forum_model.dart';
 import 'topic_list.dart';
 
 void main() => runApp(MyApp());
