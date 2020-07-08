@@ -1,11 +1,23 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'forum_page_model.dart';
 import 'topic_item.dart';
 
-class TopicList extends StatelessWidget {
+class TopicList extends StatefulWidget {
   @override
+  _TopicListState createState() => _TopicListState();
+}
+
+class _TopicListState extends State<TopicList> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ForumPageModel>().fetchPage();
+  }
+
   Widget build(BuildContext context) {
     final topicDatas = [
       TopicData(

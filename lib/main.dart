@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'forum_model.dart';
+import 'forum_page_model.dart';
 import 'topic_list.dart';
 
 void main() => runApp(MyApp());
@@ -83,19 +84,14 @@ class _ForumPageListState extends State<ForumPageList> {
   int _index = 0;
 
   @override
-  void initState() {
-    super.initState();
-    context.read<ForumModel>().fetchForum();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-            color: Colors.white,
-            width: double.infinity,
-            child: Center(child: Text('$_index'))),
+          color: Colors.white,
+          width: double.infinity,
+          child: Center(child: Text('$_index')),
+        ),
         Expanded(
           child: PageView.builder(
             onPageChanged: (int index) {
@@ -104,7 +100,13 @@ class _ForumPageListState extends State<ForumPageList> {
               });
             },
             itemBuilder: (BuildContext context, int index) {
-              return TopicList();
+              return ChangeNotifierProvider(
+                create: (context) => ForumPageModel(
+                  forum: context.read<ForumModel>(),
+                  page: 0,
+                ),
+                child: TopicList(),
+              );
             },
             itemCount: 10,
             controller: PageController(initialPage: _index),

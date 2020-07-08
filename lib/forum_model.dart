@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
 class ForumModel extends ChangeNotifier {
   ForumModel({@required this.url});
@@ -13,11 +12,5 @@ class ForumModel extends ChangeNotifier {
   set name(String val) {
     _name = val;
     notifyListeners();
-  }
-
-  Future<void> fetchForum() async {
-    final response = await http.get(url);
-
-    name = response.statusCode.toString();
   }
 }
