@@ -54,24 +54,25 @@ class TopicItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          topicData.title,
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: topicData.title,
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          '(${topicData.messageCount})',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                          TextSpan(text: ' '),
+                          TextSpan(
+                            text: '(${topicData.messageCount})',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                     DefaultTextStyle.merge(
                       style: TextStyle(

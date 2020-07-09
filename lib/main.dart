@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'forum_model.dart';
 import 'forum_page_model.dart';
-import 'topic_list.dart';
+import 'forum_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -99,15 +99,14 @@ class _ForumPageListState extends State<ForumPageList> {
                 _index = index;
               });
             },
-            itemBuilder: (BuildContext context, int index) {
-              return ChangeNotifierProvider(
-                create: (context) => ForumPageModel(
-                  forum: context.read<ForumModel>(),
-                  page: 0,
-                ),
-                child: TopicList(),
-              );
-            },
+            itemBuilder: (BuildContext context, int index) =>
+                ChangeNotifierProvider(
+              create: (context) => ForumPageModel(
+                forum: context.read<ForumModel>(),
+                page: index,
+              ),
+              child: ForumPage(page: index),
+            ),
             itemCount: 10,
             controller: PageController(initialPage: _index),
           ),
