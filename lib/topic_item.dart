@@ -38,11 +38,11 @@ class TopicItem extends StatelessWidget {
           Navigator.pushNamed(context, '/topic');
         },
         child: Container(
-          padding: EdgeInsets.all(4),
+          padding: const EdgeInsets.all(4),
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(2),
                 child: Image.asset(
                   _topicTypeToAssetName(topicData.type),
                   width: 20,
@@ -59,15 +59,15 @@ class TopicItem extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: topicData.title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.blue,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          TextSpan(text: ' '),
+                          const TextSpan(text: ' '),
                           TextSpan(
                             text: '(${topicData.messageCount})',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -75,7 +75,7 @@ class TopicItem extends StatelessWidget {
                       ),
                     ),
                     DefaultTextStyle.merge(
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Colors.black54,
                       ),

@@ -26,6 +26,8 @@ class ForumPageModel extends ChangeNotifier {
       r'<span class=".*?text-([^ ]*) topic-author[^>]*>[^A-Za-z0-9\[\]_-]*([^<\n\r ]*)');
   static final RegExp _topicDatePattern =
       RegExp(r'<span class="topic-date">[^<]*<span[^>]*>[^0-9/:]*([0-9/:]*)');
+  static final RegExp _topicTypePattern = RegExp(
+      r'<img src="/img/forums/topic-(.*?)\.png" alt="[^"]*" title="[^"]*" class="topic-img');
 
   final ForumModel forum;
   final int page;
@@ -62,10 +64,37 @@ class ForumPageModel extends ChangeNotifier {
           _topicNumberMessagesPattern.firstMatch(wholeTopic);
       final topicAuthorMatch = _topicAuthorPattern.firstMatch(wholeTopic);
       final topicDateMatch = _topicDatePattern.firstMatch(wholeTopic);
+      final topicTypeMatch = _topicTypePattern.firstMatch(wholeTopic);
 
       final String topicNameAndLinkString = nameAndLinkMatch.group(1);
       final String title = topicNameAndLinkString
           .substring(topicNameAndLinkString.indexOf(r'title="') + 7);
+
+      TopicType topicType;
+
+      switch (topicTypeMatch.group(1)) {
+        case "marque-on":
+          topicType = TopicType.Pinned;
+          break;
+        case "marque-off":
+          topicType = TopicType.PinnedAndLocked;
+          break;
+        case "dossier2":
+          topicType = TopicType.MultiPage;
+          break;
+        case "lock":
+          topicType = TopicType.Locked;
+          break;
+        case "resolu":
+          topicType = TopicType.Solved;
+          break;
+        case "ghost":
+          topicType = TopicType.Deleted;
+          break;
+        default:
+          topicType = TopicType.SinglePage;
+          break;
+      }
 
       _topicsData.add(
         TopicData(
@@ -73,6 +102,7 @@ class ForumPageModel extends ChangeNotifier {
           messageCount: int.parse(topicNumberMessagesMatch.group(1)),
           author: topicAuthorMatch?.group(2)?.trim() ?? 'Pseudo supprimé',
           date: topicDateMatch.group(1),
+          type: topicType,
         ),
       );
     }

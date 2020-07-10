@@ -23,22 +23,26 @@ class _ForumPageState extends State<ForumPage> {
   }
 
   Widget build(BuildContext context) {
-    return Consumer<ForumPageModel>(
-      builder: (context, model, child) => Scrollbar(
-        child: ListView.builder(
-          itemCount: max((model.topicsData.length * 2) - 1, 0),
-          itemBuilder: (BuildContext context, int index) {
-            if (index.isOdd) return Divider(height: 1, thickness: 1);
+    final model = context.watch<ForumPageModel>();
+    final int itemCount = max((model.topicsData.length * 2) - 1, 0);
+    final children = <Widget>[];
 
-            int topicIndex = index ~/ 2;
+    for (int idx = 0; idx < itemCount; ++idx) {
+      if (idx.isOdd) {
+        children.add(const Divider(height: 1, thickness: 1));
+        continue;
+      }
 
-            return TopicItem(
-              topicData: model.topicsData[topicIndex],
-              isBackgroundColored: topicIndex.isOdd,
-            );
-          },
-        ),
-      ),
+      int topicIndex = idx ~/ 2;
+
+      children.add(TopicItem(
+        topicData: model.topicsData[topicIndex],
+        isBackgroundColored: topicIndex.isOdd,
+      ));
+    }
+
+    return Scrollbar(
+      child: ListView(children: children),
     );
   }
 }

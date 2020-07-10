@@ -5,6 +5,10 @@ import 'forum_model.dart';
 import 'forum_page_model.dart';
 import 'forum_page.dart';
 
+// https://flutter.dev/docs/resources/inside-flutter
+// https://medium.com/flutter-community/the-layer-cake-widgets-elements-renderobjects-7644c3142401
+// https://medium.com/flutter-community/flutter-what-are-widgets-renderobjects-and-elements-630a57d05208
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -32,20 +36,20 @@ class ForumScreen extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            child: Text('Drawer Header'),
-            decoration: BoxDecoration(
+          const DrawerHeader(
+            child: const Text('Drawer Header'),
+            decoration: const BoxDecoration(
               color: Colors.blue,
             ),
           ),
           ListTile(
-            title: Text('Item 1'),
+            title: const Text('Item 1'),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
-            title: Text('Item 2'),
+            title: const Text('Item 2'),
             onTap: () {
               Navigator.pop(context);
             },
@@ -83,6 +87,36 @@ class ForumPageList extends StatefulWidget {
 class _ForumPageListState extends State<ForumPageList> {
   int _index = 0;
 
+  Widget forumPageView;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final forumPages = <Widget>[];
+
+    for (int idx = 0; idx < 10; ++idx) {
+      forumPages.add(
+        ChangeNotifierProvider(
+          create: (context) => ForumPageModel(
+            forum: context.read<ForumModel>(),
+            page: idx,
+          ),
+          child: ForumPage(page: idx),
+        ),
+      );
+    }
+
+    forumPageView = PageView(
+      onPageChanged: (int index) {
+        setState(() {
+          _index = index;
+        });
+      },
+      children: forumPages,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -92,25 +126,7 @@ class _ForumPageListState extends State<ForumPageList> {
           width: double.infinity,
           child: Center(child: Text('$_index')),
         ),
-        Expanded(
-          child: PageView.builder(
-            onPageChanged: (int index) {
-              setState(() {
-                _index = index;
-              });
-            },
-            itemBuilder: (BuildContext context, int index) =>
-                ChangeNotifierProvider(
-              create: (context) => ForumPageModel(
-                forum: context.read<ForumModel>(),
-                page: index,
-              ),
-              child: ForumPage(page: index),
-            ),
-            itemCount: 10,
-            controller: PageController(initialPage: _index),
-          ),
-        )
+        Expanded(child: forumPageView),
       ],
     );
   }
