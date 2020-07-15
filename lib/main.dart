@@ -5,6 +5,7 @@ import 'forum_model.dart';
 import 'forum_page_model.dart';
 import 'forum_page.dart';
 
+// https://flutter.dev/docs/resources/technical-overview
 // https://flutter.dev/docs/resources/inside-flutter
 // https://medium.com/flutter-community/the-layer-cake-widgets-elements-renderobjects-7644c3142401
 // https://medium.com/flutter-community/flutter-what-are-widgets-renderobjects-and-elements-630a57d05208

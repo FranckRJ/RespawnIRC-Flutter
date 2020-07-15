@@ -67,6 +67,9 @@ class ForumPageModel extends ChangeNotifier {
       final topicTypeMatch = _topicTypePattern.firstMatch(wholeTopic);
 
       final String topicNameAndLinkString = nameAndLinkMatch.group(1);
+      final String url = "https://www.jeuxvideo.com" +
+          topicNameAndLinkString.substring(
+              0, topicNameAndLinkString.indexOf('"'));
       final String title = topicNameAndLinkString
           .substring(topicNameAndLinkString.indexOf(r'title="') + 7);
 
@@ -98,6 +101,7 @@ class ForumPageModel extends ChangeNotifier {
 
       _topicsData.add(
         TopicData(
+          url: url,
           title: title,
           messageCount: int.parse(topicNumberMessagesMatch.group(1)),
           author: topicAuthorMatch?.group(2)?.trim() ?? 'Pseudo supprimé',
